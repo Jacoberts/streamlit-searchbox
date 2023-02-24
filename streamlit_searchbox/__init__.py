@@ -32,6 +32,7 @@ def st_searchbox(
     key: str
         An key that uniquely identifies this component, used to store state.
     """
+    REACH_SEARCH_KEY = "search"
     SEARCH, OPTIONS = "search" + key, "options" + key
 
     if SEARCH not in st.session_state:
@@ -56,8 +57,8 @@ def st_searchbox(
 
         # in case the searchbox has new characters, redraw the whole component and call the options function
         # almost always true, as the functions gets triggered after a react state change, i.e. user input
-        if st.session_state[SEARCH] != react_state[SEARCH]:
-            st.session_state[SEARCH] = react_state[SEARCH]
+        if st.session_state[SEARCH] != react_state[REACH_SEARCH_KEY]:
+            st.session_state[SEARCH] = react_state[REACH_SEARCH_KEY]
 
             # if only string, assume this is the desired return value
             # make sure that labels are strings
@@ -68,7 +69,7 @@ def st_searchbox(
 
             # set new options, will be passed to react in re-run
             st.session_state[OPTIONS] = [
-                to_react(v) for v in search_function(react_state[SEARCH])
+                to_react(v) for v in search_function(react_state[REACH_SEARCH_KEY])
             ]
 
             st.experimental_rerun()
