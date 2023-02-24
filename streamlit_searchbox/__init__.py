@@ -32,7 +32,7 @@ def st_searchbox(
     key: str
         An key that uniquely identifies this component, used to store state.
     """
-    SEARCH, OPTIONS = "search", "options"
+    SEARCH, OPTIONS = "search" + key, "options" + key
 
     if SEARCH not in st.session_state:
         st.session_state[SEARCH] = ""
